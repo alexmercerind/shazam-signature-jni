@@ -1,3 +1,6 @@
+#![cfg(target_os="android")]
+#![allow(non_snake_case)]
+
 mod fingerprinting {
     pub mod algorithm;
     mod hanning;
@@ -10,9 +13,9 @@ use jni::JNIEnv;
 use fingerprinting::algorithm::SignatureGenerator;
 
 #[no_mangle]
-pub extern "system" fn Java_ShazamSignatureGenerator_create<'local>(
-    mut env: JNIEnv<'local>,
-    class: JClass<'local>,
+pub extern "system" fn Java_com_alexmercerind_audire_native_ShazamSignature_create<'local>(
+    env: JNIEnv<'local>,
+    _class: JClass<'local>,
     input: JShortArray<'local>,
 ) -> JString<'local> {
     let size = env.get_array_length(&input).unwrap() as usize;
