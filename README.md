@@ -15,21 +15,28 @@ cd shazam-signature-generator
 2. Create `.cargo/config` to specify the Android NDK location. e.g.
 
 ```
+# On newer Android devices, 16KB page size is used.
+# The `-Wl,-z,max-page-size=65536` flag is required to support these devices.
+
 [target.aarch64-linux-android]
-ar = "$(ANDROID_NDK)/bin/llvm-ar"
-linker = "$(ANDROID_NDK)/bin/aarch64-linux-android21-clang"
+ar = "/path/to/android/ndk/bin/llvm-ar"
+linker = "/path/to/android/ndk/bin/aarch64-linux-android21-clang"
+rustflags = ["-C", "link-arg=-Wl,-z,max-page-size=65536"]
 
 [target.armv7-linux-androideabi]
-ar = "$(ANDROID_NDK)/bin/llvm-ar"
-linker = "$(ANDROID_NDK)/bin/armv7a-linux-androideabi21-clang"
+ar = "/path/to/android/ndk/bin/llvm-ar"
+linker = "/path/to/android/ndk/bin/armv7a-linux-androideabi21-clang"
+rustflags = ["-C", "link-arg=-Wl,-z,max-page-size=65536"]
 
 [target.i686-linux-android]
-ar = "$(ANDROID_NDK)/bin/llvm-ar"
-linker = "$(ANDROID_NDK)/bin/i686-linux-android21-clang"
+ar = "/path/to/android/ndk/bin/llvm-ar"
+linker = "/path/to/android/ndk/bin/i686-linux-android21-clang"
+rustflags = ["-C", "link-arg=-Wl,-z,max-page-size=65536"]
 
 [target.x86_64-linux-android]
-ar = "$(ANDROID_NDK)/bin/llvm-ar"
-linker = "$(ANDROID_NDK)/bin/x86_64-linux-android21-clang"
+ar = "/path/to/android/ndk/bin/llvm-ar"
+linker = "/path/to/android/ndk/bin/x86_64-linux-android21-clang"
+rustflags = ["-C", "link-arg=-Wl,-z,max-page-size=65536"]
 ```
 
 3. Add Android targets for Rust.
